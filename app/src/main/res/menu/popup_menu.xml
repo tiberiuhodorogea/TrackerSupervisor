@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemLocation"
+        android:showAsAction="ifRoom|withText"
+        android:title="Location"
+        android:visible="true"/>
+    <item
+        android:id="@+id/itemSMS"
+        android:showAsAction="ifRoom|withText"
+        android:title="SMS"
+        android:visible="true"/>
+
+</menu>
