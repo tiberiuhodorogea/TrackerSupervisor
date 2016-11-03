@@ -23,6 +23,7 @@ public class ActionTypesHashMapper {
         // and with the type of encapsulated data on response
         // example: messageActionTypesMapper.put(RequestedAction.CHECK_ACCESS,new TypePairContainer(Credentials.class, User.class));
         messageActionTypesMapper.put(RequestedAction.GET_CLIENTS_FOR_SUPERVISOR, new TypePairContainer(String.class,new TypeToken<ArrayList<String>>(){}.getType()));
+        messageActionTypesMapper.put(RequestedAction.GET_LATEST_LOCATION_OF_CLIENT, new TypePairContainer(String.class, LocationData.class));
         //////ADD more when implement new request - response
     }
 

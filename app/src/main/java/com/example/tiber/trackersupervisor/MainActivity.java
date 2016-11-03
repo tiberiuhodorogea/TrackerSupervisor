@@ -8,12 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tiber.trackersupervisor.Clase.AsyncRequests.GetClientsAsync;
-import com.example.tiber.trackersupervisor.R;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setupListView();
 
         new GetClientsAsync(this,adapter).execute();
-        clients.add("Tiberiu");
 
     }
 
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         switch (item.getItemId()) {
             case R.id.itemLocation:
-                intent.setClass(this,MapsActivity.class);
+                intent.setClass(this,MapActivity.class);
                 break;
             case R.id.itemSMS:
                 Toast.makeText(this, "SMS Clicked", Toast.LENGTH_SHORT).show();
