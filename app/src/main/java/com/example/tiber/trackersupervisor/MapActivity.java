@@ -14,6 +14,7 @@ import com.example.tiber.trackersupervisor.Clase.AsyncRequests.MyAsyncTask;
 import com.example.tiber.trackersupervisor.Clase.ServerConnection;
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.Exceptions.KeyNotMappedException;
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.RequestedAction;
+import com.example.tiber.trackersupervisor.SharedClasses.Objects.Client;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.LocationData;
 import com.example.tiber.trackersupervisor.SharedClasses.Utils.DateUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +33,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
                     ,View.OnClickListener{
 
     private GoogleMap mMap;
-    protected String selectedClient;
+    protected Client selectedClient;
     Button btnRfreshLast;
     Geocoder geocoder;
     TextView tvAddress;
@@ -43,8 +45,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        selectedClient = getIntent().getStringExtra("client");
-        this.setTitle(selectedClient);
+        String selectedClientJson = getIntent().getStringExtra("selectedClient");
+        selectedClient = new Gson().fromJson(selectedClientJson,Client.class);
+        this.setTitle(selectedClient.getName());
         btnRfreshLast = (Button) findViewById(R.id.btnRefreshLast);
         btnRfreshLast.setOnClickListener(this);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
@@ -86,8 +89,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
         private LocationData locationData = null;
         @Override
         protected Void doInBackground(Void... params) {
-            ServerConnection<String,LocationData> connection =
-                    new ServerConnection<String,LocationData>(context);
+            ServerConnection<Client,LocationData> connection =
+                    new ServerConnection<Client,LocationData>(context);
 
             try {
                 locationData = connection.execute(RequestedAction.GET_LATEST_LOCATION_OF_CLIENT,selectedClient);

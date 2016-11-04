@@ -9,8 +9,11 @@ import com.example.tiber.trackersupervisor.SharedClasses.Communication.Exception
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.RequestedAction;
 
 import java.util.ArrayList;
+import java.util.jar.Pack200;
 
 import com.example.tiber.trackersupervisor.Clase.ServerConnection;
+import com.example.tiber.trackersupervisor.SharedClasses.Objects.Client;
+import com.example.tiber.trackersupervisor.SharedClasses.Objects.Supervisor;
 
 /**
  * Created by tiber on 11/2/2016.
@@ -19,20 +22,29 @@ import com.example.tiber.trackersupervisor.Clase.ServerConnection;
 public class GetClientsAsync extends MyAsyncTask {
 
     ArrayAdapter<String> adapter;
-    public GetClientsAsync(Context context,ArrayAdapter<String> adapter) {
+    ArrayList<String> clientsNames;
+    ArrayList<Client> clients;
+
+    public GetClientsAsync(Context context,ArrayAdapter<String> adapter, ArrayList<Client> clients, ArrayList<String> clientsNames) {
         super(context);
         this.adapter = adapter;
+        this.clientsNames = clientsNames;
+        this.clients = clients;
     }
 
-    ArrayList<String> clients = null;
 
+    ArrayList<Client> localClients = null;
     @Override
     protected Void doInBackground(Void... params) {
-        ServerConnection<String,ArrayList<String>> connection =
-                new ServerConnection<String,ArrayList<String>>(context);
+        ServerConnection<Supervisor,ArrayList<Client>> connection =
+                new ServerConnection<Supervisor,ArrayList<Client>>(context);
         try {
-             clients = connection.execute(RequestedAction.GET_CLIENTS_FOR_SUPERVISOR,
-                    context.getResources().getString(R.string.SUPERVISOR_NAME));
+            localClients = connection.execute(RequestedAction.GET_CLIENTS_FOR_SUPERVISOR,
+                    new Supervisor(
+                            context.getResources().getInteger(R.integer.SUPERVISOR_ID),
+                            context.getResources().getString(R.string.SUPERVISOR_NAME)
+
+                    ));
         } catch (KeyNotMappedException e) {
             e.printStackTrace();
         }
@@ -44,12 +56,22 @@ public class GetClientsAsync extends MyAsyncTask {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        if(clients == null){
+        if(localClients == null){
             Toast.makeText(context,"Problem getting the clients list", Toast.LENGTH_SHORT).show();
         }
         else {
+            clientsNames.clear();
             adapter.clear();
-            adapter.addAll(clients);
+            for(Client client: localClients){
+                clientsNames.add(client.getName());
+            }
+
+            clients.clear();
+            clients.addAll(localClients);
+
+            ArrayList<String> auxClientNames = (ArrayList<String>) clientsNames.clone();
+            adapter.clear();
+            adapter.addAll(auxClientNames);
             adapter.notifyDataSetChanged();
         }
 

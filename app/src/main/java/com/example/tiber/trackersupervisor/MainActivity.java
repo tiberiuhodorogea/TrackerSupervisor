@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tiber.trackersupervisor.Clase.AsyncRequests.GetClientsAsync;
+import com.example.tiber.trackersupervisor.SharedClasses.Objects.Client;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -19,30 +21,32 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, PopupMenu.OnMenuItemClickListener {
 
     ListView listView;
-    ArrayList<String> clients = new ArrayList<String>();
+    ArrayList<Client> clients = new ArrayList<Client>();
+    ArrayList<String> clientsNames = new ArrayList<String>();
     ArrayAdapter<String> adapter = null;
-    String selectedClient = null;
+    Client selectedClient = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupListView();
 
-        new GetClientsAsync(this,adapter).execute();
+        new GetClientsAsync(this,adapter,clients,clientsNames).execute();
 
     }
 
     private void setupListView() {
         listView = (ListView) findViewById(R.id.clientsListView);
+
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, clients);
+                android.R.layout.simple_list_item_1, android.R.id.text1, clientsNames);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         registerForContextMenu(listView);
     }
 
     public void onButtonLoadClick(View v){
-        new GetClientsAsync(this,adapter).execute();
+        new GetClientsAsync(this,adapter,clients,clientsNames).execute();
     }
 
     @Override
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean onMenuItemClick(MenuItem item) {
 
         Intent intent = new Intent();
-        intent.putExtra("client",selectedClient);
+        intent.putExtra("selectedClient",new Gson().toJson(selectedClient,Client.class));
 
         switch (item.getItemId()) {
             case R.id.itemLocation:
