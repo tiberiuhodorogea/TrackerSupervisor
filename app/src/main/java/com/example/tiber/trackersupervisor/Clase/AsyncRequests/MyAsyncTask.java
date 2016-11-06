@@ -28,7 +28,7 @@ public abstract class MyAsyncTask extends AsyncTask<Void,Void,Void> {
         mDialog.show();
         */
         toast = Toast.makeText(context,"contacting server....",Toast.LENGTH_LONG);
-        toast.show();
+            toast.show();
     }
 
     @Override

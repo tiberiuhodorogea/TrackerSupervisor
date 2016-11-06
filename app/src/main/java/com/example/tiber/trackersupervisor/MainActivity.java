@@ -72,8 +72,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 intent.setClass(this,MapActivity.class);
                 break;
             case R.id.itemSMS:
-                Toast.makeText(this, "SMS Clicked", Toast.LENGTH_SHORT).show();
-
+                intent.setClass(this,SMSGroupsActivity.class);
                 break;
             default:
                 Toast.makeText(this,"Ceva nu e bine, default pe switch onmenuclick",Toast.LENGTH_LONG).show();

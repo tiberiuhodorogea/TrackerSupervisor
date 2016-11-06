@@ -109,7 +109,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
             }
             else {
                 LatLng clientLatestLocation = new LatLng(locationData.getLatitude(), locationData.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(clientLatestLocation).title(selectedClient + " latestLocation"));
+                mMap.addMarker(new MarkerOptions().position(clientLatestLocation).title(selectedClient.getName() + "'s latest location"));
                 moveToCurrentLocation(clientLatestLocation);
                 updateAddress(locationData);
             }
