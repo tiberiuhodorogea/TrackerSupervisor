@@ -10,5 +10,10 @@
         android:showAsAction="ifRoom|withText"
         android:title="SMS"
         android:visible="true"/>
+    <item
+        android:id="@+id/itemDeactivateClient"
+        android:showAsAction="ifRoom|withText"
+        android:title="Delete"
+        android:visible="true"/>
 
 </menu>

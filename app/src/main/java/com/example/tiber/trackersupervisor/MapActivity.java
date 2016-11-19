@@ -3,6 +3,7 @@ package com.example.tiber.trackersupervisor;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.provider.Telephony;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -108,6 +109,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(context,"Problems getting location data",Toast.LENGTH_LONG).show();
             }
             else {
+                mMap.clear();
                 LatLng clientLatestLocation = new LatLng(locationData.getLatitude(), locationData.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(clientLatestLocation).title(selectedClient.getName() + "'s latest location"));
                 moveToCurrentLocation(clientLatestLocation);
@@ -136,17 +138,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this,"Error getting address using geocoder...",Toast.LENGTH_LONG).show();
             return;
         }
-
-        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-        String city = addresses.get(0).getLocality();
-        String state = addresses.get(0).getAdminArea();
-        String country = addresses.get(0).getCountryName();
-        String knownName = addresses.get(0).getFeatureName();
-        String date = (DateUtil.fromIntFormat(location.getDate())).toString();
-        String endl = "\n";
-        tvAddress.setText(
-                address + endl+  city +  endl+ knownName +  endl+ date
-        );
+        if(addresses.size() > 0) {
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String knownName = addresses.get(0).getFeatureName();
+            String date = (DateUtil.fromIntFormat(location.getDate())).toString();
+            String endl = "\n";
+            tvAddress.setText(
+                    address + endl + city + endl + knownName + endl + date
+            );
+        }
+        else{
+            tvAddress.setText("no location yet...");
+        }
 
     }
 }

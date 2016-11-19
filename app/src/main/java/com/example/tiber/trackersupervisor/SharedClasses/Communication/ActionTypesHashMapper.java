@@ -28,6 +28,8 @@ public class ActionTypesHashMapper {
         messageActionTypesMapper.put(RequestedAction.GET_CLIENTS_FOR_SUPERVISOR, new TypePairContainer(Supervisor.class,new TypeToken<ArrayList<Client>>(){}.getType()));
         messageActionTypesMapper.put(RequestedAction.GET_LATEST_LOCATION_OF_CLIENT, new TypePairContainer(Client.class, LocationData.class));
         messageActionTypesMapper.put(RequestedAction.GET_SMS_GROUPS_OF_CLIENT,new TypePairContainer(Integer.class,new TypeToken<ArrayList<SMSGroupDetails>>(){}.getType()));
+        messageActionTypesMapper.put(RequestedAction.ADD_CLIENT, new TypePairContainer(Client.class, ResponseEnum.class));
+        messageActionTypesMapper.put(RequestedAction.DEACTIVATE_CLIENT, new TypePairContainer(Client.class,ResponseEnum.class));
         //////ADD more when implement new request - response
     }
 

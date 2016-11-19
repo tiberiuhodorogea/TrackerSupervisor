@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="SERVER_ADDRESS">192.168.2.101</string>
+    <string name="SERVER_ADDRESS">13.81.70.196</string>
     <integer name="PORT">7177</integer>
     <integer name="SOCKET_READ_BLOCK_TIMEOUT">4000</integer>
     <integer name="SOCKET_CONNECT_TIMEOUT">4000</integer>
