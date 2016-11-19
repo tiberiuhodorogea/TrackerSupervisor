@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.id.itemDeactivateClient:
                 new DeactivateClientAsync(this,selectedClient).execute();
                 return true;
+            case R.id.itemShowClientId:
+                Toast.makeText(this,"ID for "+ selectedClient.getName()
+                        + ": "+ selectedClient.getId(),Toast.LENGTH_LONG).show();
+                return true;
             default:
                 Toast.makeText(this,"Ceva nu e bine, default pe switch onmenuclick",Toast.LENGTH_LONG).show();
                 return true;
@@ -100,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
        }
     }
 
+    public void onAddNewClientFromMainActivityClick(View v){
+        Intent startAddNewClientActivity = new Intent(this,AddClientActivity.class);
+        startActivityForResult(startAddNewClientActivity,1/*whatever*/);
+    }
 
     class DeactivateClientAsync extends MyAsyncTask{
 
@@ -133,7 +141,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
             else{
                 Toast.makeText(context,"Client deactivated successfully, refreshing....",Toast.LENGTH_SHORT).show();
-                new GetClientsAsync(context,adapter,clients,clientsNames);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+
+                }
+                new GetClientsAsync(context,adapter,clients,clientsNames).execute();
             }
 
         }

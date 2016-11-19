@@ -72,13 +72,19 @@ public class AddClientActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if( response != ResponseEnum.OK ){
-                Toast.makeText(context,"Connection problems",Toast.LENGTH_SHORT).show();
+            if( response == null ){
+                Toast.makeText(context,"Some problems..",Toast.LENGTH_SHORT).show();
             }
-            else {
+            else if ( response == ResponseEnum.DUPLICATE_CLIENT_NAME ){
+                Toast.makeText(context,client.getName() + " already existant for current user( maybe it's de-activated?... )", Toast.LENGTH_LONG).show();
+            }
+            else if(response == ResponseEnum.OK ){
                 Toast.makeText(context,"Client added",Toast.LENGTH_SHORT).show();
                 ((AppCompatActivity)context).setResult(MainActivity.REFRESH_RESULT_CODE);
                 ((AppCompatActivity)context).finish();
+            }
+            else {
+                Toast.makeText(context,"Some problems..",Toast.LENGTH_SHORT).show();
             }
         }
     }

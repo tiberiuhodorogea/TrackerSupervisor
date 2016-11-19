@@ -13,7 +13,12 @@
     <item
         android:id="@+id/itemDeactivateClient"
         android:showAsAction="ifRoom|withText"
-        android:title="Delete"
+        android:title="De-activate"
+        android:visible="true"/>
+    <item
+        android:id="@+id/itemShowClientId"
+        android:showAsAction="ifRoom|withText"
+        android:title="Show ID"
         android:visible="true"/>
 
 </menu>

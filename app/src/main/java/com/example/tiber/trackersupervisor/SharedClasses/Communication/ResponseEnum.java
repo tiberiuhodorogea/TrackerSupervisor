@@ -5,4 +5,5 @@ package com.example.tiber.trackersupervisor.SharedClasses.Communication;
  */
 public enum ResponseEnum {
     OK,
+    DUPLICATE_CLIENT_NAME,
 }
