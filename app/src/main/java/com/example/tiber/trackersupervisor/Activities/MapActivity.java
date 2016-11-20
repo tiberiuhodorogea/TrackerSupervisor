@@ -1,4 +1,4 @@
-package com.example.tiber.trackersupervisor;
+package com.example.tiber.trackersupervisor.Activities;
 
 import android.content.Context;
 import android.location.Address;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.tiber.trackersupervisor.Clase.AsyncRequests.MyAsyncTask;
 import com.example.tiber.trackersupervisor.Clase.ServerConnection;
+import com.example.tiber.trackersupervisor.R;
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.Exceptions.KeyNotMappedException;
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.RequestedAction;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.Client;

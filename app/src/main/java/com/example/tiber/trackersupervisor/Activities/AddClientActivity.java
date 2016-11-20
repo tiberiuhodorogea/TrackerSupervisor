@@ -1,4 +1,4 @@
-package com.example.tiber.trackersupervisor;
+package com.example.tiber.trackersupervisor.Activities;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;

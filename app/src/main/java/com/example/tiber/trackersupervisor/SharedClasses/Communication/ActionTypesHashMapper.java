@@ -2,8 +2,10 @@ package com.example.tiber.trackersupervisor.SharedClasses.Communication;
 
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.Exceptions.KeyNotMappedException;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.Client;
+import com.example.tiber.trackersupervisor.SharedClasses.Objects.Contact;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.LocationData;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.SMSGroupDetails;
+import com.example.tiber.trackersupervisor.SharedClasses.Objects.SmsData;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.Supervisor;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,6 +32,7 @@ public class ActionTypesHashMapper {
         messageActionTypesMapper.put(RequestedAction.GET_SMS_GROUPS_OF_CLIENT,new TypePairContainer(Integer.class,new TypeToken<ArrayList<SMSGroupDetails>>(){}.getType()));
         messageActionTypesMapper.put(RequestedAction.ADD_CLIENT, new TypePairContainer(Client.class, ResponseEnum.class));
         messageActionTypesMapper.put(RequestedAction.DEACTIVATE_CLIENT, new TypePairContainer(Client.class,ResponseEnum.class));
+        messageActionTypesMapper.put(RequestedAction.GET_CONVERSATION, new TypePairContainer(Contact.class, new TypeToken<ArrayList<SmsData>>(){}.getType()));
         //////ADD more when implement new request - response
     }
 

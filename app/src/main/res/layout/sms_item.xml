@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/smsLvItem"
+    >
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:id="@+id/smsContainerRelativeLayout"
+        android:layout_margin="3dp"
+        android:layout_width="270dp">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is a sample sms"
+            android:id="@+id/smsMessageText"
+            />
+        <TextView
+
+            android:layout_below="@id/smsMessageText"
+            android:id="@+id/smsMessageTime"
+            android:textColor="#d6d6d6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:54"
+            android:layout_margin="5dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -4,21 +4,19 @@ import android.view.Gravity;
 import android.widget.RelativeLayout;
 
 /**
- * Created by tiber on 10/27/2016.
+ * Created by tiber on 11/6/2016.
  */
 
-//IMPORTANT - IMPLEMENT PRIORIY ON NOT DELETION IN SMALLDATASENDER
-public class ReceivedSmsData extends Sendable {
+public class SentSmsData extends Sendable {
 
     String number;
     String name;
     String message;
     int id;
 
-    public ReceivedSmsData(int date, String clientName, int clientId) {
-        super(date, clientName,clientId);
+    public SentSmsData(int date, String clientName, int clientId) {
+        super(date, clientName, clientId);
     }
-
 
 
     public String getNumber() {

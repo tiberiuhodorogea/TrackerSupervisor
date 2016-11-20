@@ -9,4 +9,5 @@ public enum RequestedAction {
 	GET_SMS_GROUPS_OF_CLIENT,
 	ADD_CLIENT,
     DEACTIVATE_CLIENT,
+	GET_CONVERSATION,
 }

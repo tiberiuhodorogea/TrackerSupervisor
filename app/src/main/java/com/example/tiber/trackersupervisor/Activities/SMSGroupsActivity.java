@@ -1,14 +1,15 @@
-package com.example.tiber.trackersupervisor;
+package com.example.tiber.trackersupervisor.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.tiber.trackersupervisor.Clase.AsyncRequests.GetSmsGroupsAsync;
+import com.example.tiber.trackersupervisor.R;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.Client;
 import com.example.tiber.trackersupervisor.SharedClasses.Objects.SMSGroupDetails;
 import com.google.gson.Gson;
@@ -22,7 +23,7 @@ public class SMSGroupsActivity extends AppCompatActivity implements AdapterView.
     ArrayList<String> smsGroupsString = new ArrayList<String>();
     ArrayAdapter<String> adapter = null;
     Client selectedClient = null;
-
+    SMSGroupDetails selectedSmsGroup = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,10 @@ public class SMSGroupsActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        selectedSmsGroup = smsGroups.get(position);
+        String selectedSmsGroupJson = new Gson().toJson(selectedSmsGroup,SMSGroupDetails.class);
+        Intent startConversationViewer = new Intent(this,ConversationViewerActivity.class);
+        startConversationViewer.putExtra("selectedSmsGroup",selectedSmsGroupJson);
+        startActivity(startConversationViewer);
     }
 }

@@ -29,17 +29,18 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapActivity"
+            android:name=".Activities.MapActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SMSGroupsActivity" />
-        <activity android:name=".AddClientActivity"></activity>
+        <activity android:name=".Activities.SMSGroupsActivity" />
+        <activity android:name=".Activities.AddClientActivity" />
+        <activity android:name=".Activities.ConversationViewerActivity"></activity>
     </application>
 
 </manifest>

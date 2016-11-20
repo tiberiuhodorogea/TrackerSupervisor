@@ -1,7 +1,9 @@
-package com.example.tiber.trackersupervisor;
+package com.example.tiber.trackersupervisor.Activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.example.tiber.trackersupervisor.Clase.AsyncRequests.GetClientsAsync;
 import com.example.tiber.trackersupervisor.Clase.AsyncRequests.MyAsyncTask;
 import com.example.tiber.trackersupervisor.Clase.ServerConnection;
+import com.example.tiber.trackersupervisor.R;
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.Exceptions.KeyNotMappedException;
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.RequestedAction;
 import com.example.tiber.trackersupervisor.SharedClasses.Communication.ResponseEnum;
@@ -32,12 +35,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<String> clientsNames = new ArrayList<String>();
     ArrayAdapter<String> adapter = null;
     Client selectedClient = null;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupListView();
-
+        context = this;
         new GetClientsAsync(this,adapter,clients,clientsNames).execute();
 
     }
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 intent.setClass(this,SMSGroupsActivity.class);
                 break;
             case R.id.itemDeactivateClient:
-                new DeactivateClientAsync(this,selectedClient).execute();
+                deactivateClientWithConfirmation();
                 return true;
             case R.id.itemShowClientId:
                 Toast.makeText(this,"ID for "+ selectedClient.getName()
@@ -95,6 +99,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         startActivity(intent);
         return true;
+    }
+
+
+    private void deactivateClientWithConfirmation() {
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle("Confirm");
+
+        alertDialog.setMessage("You sure you wanna de-activate " + selectedClient.getName() + " ?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        new DeactivateClientAsync(context,selectedClient).execute();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+
+
+
     }
 
     @Override
