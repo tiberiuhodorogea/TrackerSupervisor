@@ -33,7 +33,7 @@ public class ConversationViewerActivity extends AppCompatActivity {
         lvSmsConversation = (ListView) findViewById(R.id.lvSmsConversation);
         adapter = new ConversationListViewAdapter(this,smsList);
         lvSmsConversation.setAdapter(adapter);
-        new GetSmsConversationAsync(this,contact,adapter).execute();
+        new GetSmsConversationAsync(this,contact,adapter,lvSmsConversation).execute();
     }
 
 

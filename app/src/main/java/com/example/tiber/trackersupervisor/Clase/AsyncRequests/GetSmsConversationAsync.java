@@ -1,6 +1,7 @@
 package com.example.tiber.trackersupervisor.Clase.AsyncRequests;
 
 import android.content.Context;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tiber.trackersupervisor.Clase.AsyncRequests.MyAsyncTask;
@@ -21,10 +22,12 @@ public class GetSmsConversationAsync extends MyAsyncTask {
 
     private Contact contact;
     ConversationListViewAdapter adapter;
-    public GetSmsConversationAsync(Context context, Contact contact, ConversationListViewAdapter adapter) {
+    private ListView listView;
+    public GetSmsConversationAsync(Context context, Contact contact, ConversationListViewAdapter adapter,ListView listView) {
         super(context);
         this.contact = contact;
         this.adapter = adapter;
+        this.listView = listView;
     }
 
     ArrayList<SmsData> smsList;
@@ -54,5 +57,14 @@ public class GetSmsConversationAsync extends MyAsyncTask {
         adapter.clear();
         adapter.addAll(smsList);
         adapter.notifyDataSetChanged();
+
+        listView.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                listView.setSelection(listView.getCount() - 1);
+            }
+        });
+
     }
 }

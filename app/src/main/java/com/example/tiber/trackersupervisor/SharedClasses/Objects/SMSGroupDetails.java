@@ -1,5 +1,7 @@
 package com.example.tiber.trackersupervisor.SharedClasses.Objects;
 
+import com.example.tiber.trackersupervisor.SharedClasses.Utils.DateUtil;
+
 /**
  * Created by tiber on 11/5/2016.
  */
@@ -61,7 +63,17 @@ public class SMSGroupDetails {
 
         ret += "\n" + "number: "+contact.getNumber();
         ret += "\n";
-        ret += "received: " +receivedCount +", sent: " + sentCount;
+        ret += "received: " + receivedCount +", sent: " + sentCount;
+        //if ( latesActivityTime != 0 )
+            ret += "     last: " + DateUtil.toUIString(this.latesActivityTime);
         return  ret;
+    }
+
+    public int getLatesActivityTime() {
+        return latesActivityTime;
+    }
+
+    public void setLatesActivityTime(int latesActivityTime) {
+        this.latesActivityTime = latesActivityTime;
     }
 }

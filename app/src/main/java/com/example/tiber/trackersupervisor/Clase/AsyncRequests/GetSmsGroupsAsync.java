@@ -63,9 +63,15 @@ public class GetSmsGroupsAsync extends MyAsyncTask {
             smsGroupsString.add(smsGroup.toString());
         }
         smsGroups.clear();
+
+
+
+
         smsGroups.addAll(smsGroupsLocal);
 
         //adapter.addAll(smsGroupsString);
         adapter.notifyDataSetChanged();
     }
+
+
 }

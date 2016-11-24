@@ -43,12 +43,19 @@ public class ConversationListViewAdapter extends ArrayAdapter<SmsData> {
         RelativeLayout smsDataContainer = (RelativeLayout) convertView.findViewById(R.id.smsContainerRelativeLayout);
         RelativeLayout smsLvItem = (RelativeLayout) convertView.findViewById(R.id.smsLvItem);
 
-        tvSmsText.setText(sms.getMessage());
+        tvSmsText.setText(replaceTokensForDB(sms.getMessage()));
         tvSmsTime.setText(DateUtil.fromIntFormat(sms.getDate()).toString());
 
         sms.prepareContainerForDisplay(smsDataContainer);
         sms.prepareContainerForDisplay(smsLvItem);
 
         return convertView;
+    }
+
+
+    String replaceTokensForDB(String text){
+        String ret = text.replaceAll("dquote", "\"");
+        ret = ret.replaceAll("quote", "\'");
+        return ret;
     }
 }
