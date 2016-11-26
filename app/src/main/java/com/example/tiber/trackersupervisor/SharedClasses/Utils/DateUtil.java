@@ -14,7 +14,7 @@ public class DateUtil {
 	public static String toUIString(Date date){
 		SimpleDateFormat format = null;
 		String ret = "";
-		String sdfArg = "dd MMM, HH:MM";
+		String sdfArg = "dd MMM, HH:mm";
 		if(date.getYear() == new Date().getYear()){
 			format = new SimpleDateFormat(sdfArg);
 		}

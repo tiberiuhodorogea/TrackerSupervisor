@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -142,13 +143,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
         if(addresses.size() > 0) {
             String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
             String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
-            String country = addresses.get(0).getCountryName();
             String knownName = addresses.get(0).getFeatureName();
-            String date = (DateUtil.fromIntFormat(location.getDate())).toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy dd MMM, HH:mm");
+            String dateString = sdf.format(DateUtil.fromIntFormat(location.getDate()));
             String endl = "\n";
             tvAddress.setText(
-                    address + endl + city + endl + knownName + endl + date
+                    address + endl + city + endl + knownName + endl + dateString
             );
         }
         else{
